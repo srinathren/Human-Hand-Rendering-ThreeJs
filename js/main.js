@@ -38,9 +38,9 @@ loader.load(
 const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.xr.enabled = true; // Enable XR
+renderer.xr.enabled = true; // Enable WebXR
 document.getElementById("container3D").appendChild(renderer.domElement);
-document.body.appendChild(VRButton.createButton(renderer)); // Add VR button
+document.getElementById("vr-button").appendChild(VRButton.createButton(renderer)); // Add VR button
 camera.position.z = 6;
 
 const topLight = new THREE.DirectionalLight(0xffffff, 1);
