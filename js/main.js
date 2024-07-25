@@ -1,6 +1,6 @@
 import * as THREE from "https://cdn.skypack.dev/three@0.143.0/build/three.module.js";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.143.0/examples/jsm/controls/OrbitControls.js";
-import { GLTFLoader } from "https://cdn.skypack.dev/three@0.143.0/examples/jsm/loaders/GLTFLoader.js";
+import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/loaders/GLTFLoader.js";
 import { VRButton } from "https://cdn.skypack.dev/three@0.143.0/examples/jsm/webxr/VRButton.js";
 
 const scene = new THREE.Scene();
