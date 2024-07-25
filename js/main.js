@@ -111,10 +111,3 @@ document.getElementById("uploadTexture").addEventListener("change", (event) => {
     reader.readAsDataURL(file);
   }
 });
-
-document.getElementById("opacitySlider").addEventListener("input", (event) => {
-  currentOpacity = parseFloat(event.target.value);
-  if (currentMaterial) {
-    currentMaterial.opacity = currentOpacity;
-  }
-});
