@@ -1,9 +1,14 @@
 import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
-import { VRButton } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/webxr/VRButton.js";
+
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
 let object;
 let controls;
 let userTexture;
@@ -11,6 +16,7 @@ let currentMaterial;
 let currentOpacity = 1;
 
 const loader = new GLTFLoader();
+
 const textureLoader = new THREE.TextureLoader();
 const textures = [
   textureLoader.load("models/dino/textures/Skull_baseColor.jpeg"),
@@ -37,9 +43,7 @@ loader.load(
 const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.xr.enabled = true; // Enable WebXR
 document.getElementById("container3D").appendChild(renderer.domElement);
-document.getElementById("vr-button").appendChild(VRButton.createButton(renderer)); // Add VR button
 camera.position.z = 6;
 
 const topLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -53,9 +57,8 @@ scene.add(ambientLight);
 controls = new OrbitControls(camera, renderer.domElement);
 
 function animate() {
-  renderer.setAnimationLoop(() => {
-    renderer.render(scene, camera);
-  });
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
 }
 
 window.addEventListener("resize", function () {
@@ -89,10 +92,18 @@ function applyTexture(textureIndex) {
   }
 }
 
-document.getElementById("texture1Btn").addEventListener("click", () => applyTexture(0));
-document.getElementById("texture2Btn").addEventListener("click", () => applyTexture(1));
-document.getElementById("texture3Btn").addEventListener("click", () => applyTexture(2));
-document.getElementById("default").addEventListener("click", () => applyTexture(3));
+document
+  .getElementById("texture1Btn")
+  .addEventListener("click", () => applyTexture(0));
+document
+  .getElementById("texture2Btn")
+  .addEventListener("click", () => applyTexture(1));
+document
+  .getElementById("texture3Btn")
+  .addEventListener("click", () => applyTexture(2));
+document
+  .getElementById("default")
+  .addEventListener("click", () => applyTexture(3));
 
 document.getElementById("uploadTexture").addEventListener("change", (event) => {
   const file = event.target.files[0];
@@ -108,5 +119,12 @@ document.getElementById("uploadTexture").addEventListener("change", (event) => {
       image.src = e.target.result;
     };
     reader.readAsDataURL(file);
+  }
+});
+
+document.getElementById("opacitySlider").addEventListener("input", (event) => {
+  currentOpacity = parseFloat(event.target.value);
+  if (currentMaterial) {
+    currentMaterial.opacity = currentOpacity;
   }
 });
